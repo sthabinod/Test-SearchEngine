@@ -138,7 +138,7 @@
         <div class="featured__item">
           <div class="featured__item__pic set-bg" data-setbg="/{{item.thumbnail}}">
             <ul class="featured__item__pic__hover">
-              <li><a href="#"><i class="fa fa-heart"></i></a></li>
+              <li><a href="{% url 'like' item.id %}"><i class="fa fa-heart"></i></a></li>
               <li><a href="{% url 'details' item.id %}"><i class="fa fa-retweet"></i></a></li>
               <li><a class="cart" id="{{details.id}}" href="#"><i class="fa fa-shopping-cart"></i></a></li>
             </ul>
@@ -326,21 +326,7 @@
 
   </div>
 </div>
-<script>
-  console.log("Cart code.......")
-  if (localStorage.getItem('cart') == null) {
-    var cart = {};
 
-  } else {
-    cart = JSON.parse(localStorage.getItem('cart'));
-  }
-  var cart = document.querySelector('.cart');
-  cart.addEventListener('click', function () {
-    console.log("Click");
-    var id = this.id.toString();
-    console.log(id);
-  });
-</script>
 
 
 

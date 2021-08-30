@@ -13,7 +13,7 @@ class Customer(models.Model):
         verbose_name_plural = 'Customers'
 
     def __str__(self) -> str:
-        return self.name
+        return self.address
 
     def get_absolute_url(self):
         return f'/{self.slug}/'

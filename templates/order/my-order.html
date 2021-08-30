@@ -33,32 +33,46 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
+                <th>Delivery status</th>
+                <th>Cancel</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
+
+              {% for item in order %}
               <tr>
                 <td class="shoping__cart__item">
                   <img src="img/cart/xcart-3.jpg.pagespeed.ic.wi3c1drGwe.jpg" alt="">
-                  <h5>Organic Bananas</h5>
+                  <h5>{{item.product.name}}</h5>
                 </td>
                 <td class="shoping__cart__price">
-                  $69.00
+                  ${{item.product.price}}
                 </td>
                 <td class="shoping__cart__quantity">
                   <div class="quantity">
-                    <div class="pro-qty">
-                      <input type="text" value="1">
-                    </div>
+                    {{item.quantity}}
                   </div>
                 </td>
                 <td class="shoping__cart__total">
-                  $69.99
+                  ${{item.product.price}}
                 </td>
+
+                <td class="shoping__cart__total">
+                  {% if item.order_status == False %}
+                  <span style="color: red;" class="fa fa-times-circle"> </span>
+                  {% elif item.order_status == True %}
+                  <span style="color:green;" class="fa fa-check-circle"> </span>
+                  {% endif %}
+                </td>
+                {% if item.order_status == False %}
                 <td class="shoping__cart__item__close">
                   <span class="icon_close"></span>
                 </td>
+                {% endif %}
               </tr>
+
+              {% endfor %}
             </tbody>
           </table>
         </div>

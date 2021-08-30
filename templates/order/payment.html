@@ -9,10 +9,10 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <div class="breadcrumb__text">
-          <h2>Checkout</h2>
+          <h2>Payment</h2>
           <div class="breadcrumb__option">
             <a href="index-2.html">Home</a>
-            <span>Checkout</span>
+            <span>Payment</span>
           </div>
         </div>
       </div>
@@ -21,8 +21,7 @@
 </section>
 
 
-<form action="{% url 'checkout' %}" method="POST">
-  {% csrf_token %}
+<form action="{% url 'payment' %}" method="POST">
   <section class="checkout spad">
     <div class="container">
       <div class="row">
@@ -30,62 +29,48 @@
         </div>
       </div>
       <div class="checkout__form">
-        <h4></h4>
+        <h4>Billing Details</h4>
         <form action="#">
           <div class="row">
             <div class="col-lg-8 col-md-6">
 
 
-              <div class="checkout__input">
-                <p>Street Address<span>*</span></p>
-                <input name="street" type="text" placeholder="Street Address" class="checkout__input__add">
-              </div>
-              <div class="checkout__input">
-                <p>Town/City<span>*</span></p>
-                <input name="city" placeholder="Sydney" type="text">
-              </div>
+
 
               <div class="checkout__input">
                 <p>Postcode / ZIP<span>*</span></p>
                 <input name="zipcode" placeholder="393990 " type="text">
               </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="checkout__input">
-                    <p>Phone<span>*</span></p>
-                    <input name="phone" placeholder="+61 092 290 290" type="text">
-                  </div>
-                </div>
 
-              </div>
             </div>
 
         </form>
         <div class="col-lg-4 col-md-6">
           <div class="checkout__order">
             <h4>Your Order</h4>
-            <div class="checkout__order__products">Products <span>Price</span></div>
+            <div class="checkout__order__products">Products <span>Total</span></div>
             <ul>
               {% for item in cart %}
               <li> {{item.product.name}} <span>${{item.product.price}}</span></li>
               {% endfor %}
             </ul>
             <div class="checkout__order__total">Total <span>${{sum}}</span></div>
-            <div id="paypal-button-container"></div>
-            {% comment %}
-            <div class="checkout__input__checkbox">
-              <input checked type="radio" id="dewey" name="drone" value="dewey"> <span class="checkmark"></span>
-              <label for="dewey">Pay Pal</label>
-            </div>
+
 
             <div class="checkout__input__checkbox">
-              <input type="radio" id="louie" name="drone" value="louie"> <span class="checkmark"></span>
-              <label for="louie">Cash On Delivery</label>
+              <label for="payment">
+                Cash on delivery
+                <input type="checkbox" id="payment">
+                <span class="checkmark"></span>
+              </label>
             </div>
-            {% endcomment %}
-
-
-
+            <div class="checkout__input__checkbox">
+              <label for="paypal">
+                Eway
+                <input type="checkbox" id="paypal">
+                <span class="checkmark"></span>
+              </label>
+            </div>
             <button type="submit" class="site-btn">PLACE ORDER</button>
           </div>
         </div>

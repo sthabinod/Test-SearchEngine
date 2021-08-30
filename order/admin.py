@@ -1,11 +1,16 @@
 from django.contrib import admin
 
-from .models import Order
+from .models import Order, Wishlist
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('phone', 'order_address', 'order_date', 'order_status')
+    list_display = ('id', 'order_status', 'complete')
     search_fields = ('phone', 'order_status', 'order_date')
     autocomplete_fields = ('product',)
-    list_per_page = 4
+    list_per_page = 10
+
+
+@admin.register(Wishlist)
+class WishlistAdmin(admin.ModelAdmin):
+    pass

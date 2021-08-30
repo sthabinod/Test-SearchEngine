@@ -1,5 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product, Category
+from django.contrib import messages
+from django.contrib.auth.models import User
+from order.models import Wishlist
+from accounts.models import Customer
 
 
 def shop_details(request, id):
@@ -19,3 +23,28 @@ def all_goods(request):
         'products': query,
     }
     return render(request, "shop-grid.html", data)
+
+
+def like(request, id):
+    try:
+        user = User.objects.get(username=request.user.username)
+        customer = Customer.objects.get(user=user)
+        product = Product.objects.get(id=id)
+        query = Wishlist.objects.create(customer=customer, product=product)
+        query.save()
+        messages.success(request, "Product has been added to wishlist.")
+        return redirect("index")
+    except Exception as e:
+        messages.success(request, "Product has already exists in wishlist.")
+        return redirect("index")
+
+
+def wishlist(request):
+    try:
+        user = User.objects.get(username=request.user.username)
+        customer = Customer.objects.get(user=user)
+        query = Wishlist.objects.filter(customer=customer)
+        return render(request, "order/wishlist.html", {'wishlist': query})
+    except Exception as e:
+        messages.error(request, "Wishlist error!")
+        return render(request, "order/wishlist.html")

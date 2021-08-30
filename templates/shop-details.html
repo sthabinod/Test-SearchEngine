@@ -37,15 +37,20 @@
           </div>
           <div class="product__details__price">${{details.price}}</div>
           <p>{{details.description}}</p>
-          <div class="product__details__quantity">
-            <div class="quantity">
-              <div class="pro-qty">
-                <input type="text" value="1">
+          <form action="{% url 'cart' details.id %}" method="POST">
+            {% csrf_token %}
+            <div class="product__details__quantity">
+              <div class="quantity">
+                <div class="pro-qty">
+                  <input name="quantity" type="text" value="1">
+                </div>
               </div>
             </div>
-          </div>
-          <a class="cart" id="{{details.id}}" href="#" class="primary-btn">ADD TO CARD</a>
-          <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+            <button href="" type="submit" class="primary-btn addToCart cart">ADD TO CARD</button>
+
+
+            <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+          </form>
           <ul>
             <li><b>Availability</b> <span>{{details.available}}</span></li>
             <li><b>Shipping</b> <span>{{details.shipping_day}}</span></li>
@@ -97,7 +102,7 @@
   console.log("Cart code.......")
   if (localStorage.getItem('cart') == null) {
     var cart = {};
-
+    console.log("It is null");
   } else {
     cart = JSON.parse(localStorage.getItem('cart'));
   }

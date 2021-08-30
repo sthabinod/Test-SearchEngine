@@ -14,7 +14,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&amp;display=swap"
         rel="stylesheet">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
     <link rel="stylesheet"
         href="{% static 'css/bootstrap.min.css+font-awesome.min.css+elegant-icons.css+nice-select.css+jquery-ui.min.css+owl.carousel.min.css+slicknav.min.css+style.css.pagespeed.cc.4YNTZ7I7f2.css' %}"
@@ -53,7 +55,7 @@
                             </div>
                             <div class="header__top__right__language">
                                 <img src="img/xlanguage.png.pagespeed.ic.x-r7SQqGJF.jpg" alt="">
-                                <div>English</div>
+                                <div>{{request.user}}</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
                                     <li><a href="#">English</a></li>
@@ -68,55 +70,58 @@
             </div>
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="{% url 'index' %}"><img src="{% static 'img/xlogo.png.pagespeed.ic.ap5icp--OT.png' %}"
-                                alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                            <li><a href="{% url 'all-goods' %}">Shop</a></li>
-                            <li><a href="#">Orders</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="{% url 'cart-details' %}">Shoping Cart</a></li>
-                                    <li><a href="{% url 'my-order' %}">My orders</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{% url 'contact' %}">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__cart">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a onClick="cartData()" href="{% url 'cart-details' %}"><i
-                                        class="fa fa-shopping-bag"></i> <span>3</span></a>
-                            </li>
-                        </ul>
-                    </div>
+
+        <ul>
+            <li id="">
+
+            </li>
+        </ul <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div style="margin-left:100px;" class="header__logo">
+                    <a href="{% url 'index' %}"><img src="{% static 'img/xlogo.png.pagespeed.ic.ap5icp--OT.png' %}"
+                            alt=""></a>
                 </div>
             </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                        <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'all-goods' %}">Shop</a></li>
+                        <li><a href="#">Orders</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="{% url 'cart-details' %}">Shoping Cart</a></li>
+                                <li><a href="{% url 'my-order' %}">My orders</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </nav>
             </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-heart"></i> <span>{{wishlist_count}}</span></a></li>
+                        <li><a href="{% url 'cart-details' %}"><i class="fa fa-shopping-bag"></i> <span
+                                    id="cartNumber">0</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
         </div>
     </header>
     {% block 'content' %}
 
     {% endblock %}
-    <script>
-        function cartData() {
-            data = localStorage.getItem('cart');
-            console.log("working");
-            console.log(data);
 
-        }
+    <script>
+        var cart = localStorage.getItem('cart');
+
+        document.getElementById("cartNumber").innerHTML = Object.keys(cart).length;
     </script>
     <script src="{% static 'js/jquery-3.3.1.min.js' %}">
     </script>
@@ -133,6 +138,12 @@
     <script src="{% static 'js/mixitup.min.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"> </script>
     <script src="{% static 'js/main.js' %}"> </script>
+    <script src="{% static 'js/work/main.js' %}"> </script>
+    <script src="{% static 'js/work/checkout.js' %}"> </script>
+    <script src="{% static 'js/work/viewcart.js' %}"> </script>
+    <script src="{% static 'js/extension/choices.js' %}"> </script>
+    <script src="{% static 'js/extension/custom-materialize.js' %}"> </script>
+    <script src="{% static 'js/extension/flatpickr.js' %}"> </script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13">
     </script>
@@ -152,7 +163,45 @@
 
 
 </body>
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AQYt5mD9leevCjjOYonVy44wdxIf41ThD4IXIqDypA06YKT3ioHi0WRFDhvA8JHaxJroT27AGvQGjfT7&currency=USD&disable-funding=credit">
+</script>
 
+<script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+
+        // Set up the transaction
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '88.44'
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (orderData) {
+                // Successful capture! For demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction ' + transaction.status + ': ' + transaction.id +
+                    '\n\nSee console for all available details');
+
+                // Replace the above to show a success message within this page, e.g.
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
 <!-- Mirrored from preview.colorlib.com/theme/ogani/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Aug 2021 07:33:54 GMT -->
 
 </html>

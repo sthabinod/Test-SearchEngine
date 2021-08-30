@@ -40,8 +40,8 @@ class Product(models.Model):
     thumbnail = models.ImageField(upload_to='uploads', blank=True, null=True)
     available = models.BooleanField(default=True)
     shipping_day = models.IntegerField(default=3)
+    quantity = models.IntegerField(default=1)
     weight = models.DecimalField(max_digits=6, decimal_places=2)
-
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:

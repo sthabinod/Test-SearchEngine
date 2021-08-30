@@ -2,6 +2,9 @@ from django.shortcuts import render
 from product.models import Category, Product
 import datetime
 from .models import Information
+from accounts.models import Customer
+from django.contrib.auth.models import User
+from order.models import Order, Wishlist
 
 
 def index(request):
@@ -18,6 +21,26 @@ def index(request):
 
     cheapest_product = Product.objects.filter(
         price__lte=100)[:3]
+    wishlist_count = 0
+    try:
+        user = User.objects.get(username=request.user)
+        customer = Customer.objects.get(user=user)
+
+        wishlist_count = Wishlist.objects.filter(
+            customer=customer).count()
+        print(wishlist_count)
+    except Exception as e:
+        print("NO LOVED")
+
+    cart_item_count = 0
+    try:
+        user = User.objects.get(username=request.user)
+        customer = Customer.objects.get(user=user)
+
+        cart_item_count = Order.objects.filter(
+            complete=False).count()
+    except Exception as e:
+        print("NO LOVED")
 
     data = {
         'categories': categories,
@@ -26,6 +49,8 @@ def index(request):
         'cheapest_product': cheapest_product,
         'expensive_product': expensive_product,
         'information': information,
+        'wishlist_count': wishlist_count,
+        'cart_item_count': cart_item_count
     }
 
     if request.method == "POST":

@@ -25,7 +25,6 @@ def signin(request):
         return render(request, 'accounts/login.html')
     except Exception:
         print(Exception)
-    return render(request, 'login.html')
 
 
 def register(request):
