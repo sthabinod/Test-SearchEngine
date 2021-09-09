@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Customer
+from .models import MoreAboutUser
 
 
-@admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
+@admin.register(MoreAboutUser)
+class MoreAboutUserAdmin(admin.ModelAdmin):
     list_display = ('address', 'phone')
     search_fields = ('phone',)
 
